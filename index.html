@@ -36,21 +36,68 @@
     padding-bottom: 16px;
   }
   .modal .content {
-    max-height: 45vh;
+    max-height: 38vh;
     overflow-y: auto;
     font-size: 14.5px;
     line-height: 1.65;
     color: #c9c9c9;
     padding-right: 12px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
   .modal .content ol { padding-left: 22px; margin: 0; }
   .modal .content li { margin-bottom: 12px; }
   .modal .content strong { color: #fff; }
   .modal .content::-webkit-scrollbar { width: 6px; }
-  .modal .content::-webkit-scrollbar-thumb {
-    background: #444; border-radius: 3px;
+  .modal .content::-webkit-scrollbar-thumb { background: #444; border-radius: 3px; }
+
+  /* ==== Обязательно к прочтению ==== */
+  .must-read {
+    background: #2a1717;
+    border: 1px solid #5a2a2a;
+    border-left: 4px solid #d94a4a;
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
   }
+  .must-read .mr-title {
+    font-size: 12.5px;
+    color: #ff7a7a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .must-read .mr-text {
+    font-size: 13.5px;
+    color: #d8c0c0;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .must-read .mr-text strong { color: #fff; }
+
+  /* ==== Согласие ==== */
+  .agree-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 13.5px;
+    color: #c9c9c9;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .agree-row input[type="checkbox"] {
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    accent-color: #4a7cff;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
   .btn-accept {
     display: block;
     width: 100%;
@@ -65,8 +112,13 @@
     cursor: pointer;
     transition: background 0.2s, transform 0.1s;
   }
-  .btn-accept:hover { background: #3a6aeb; }
-  .btn-accept:active { transform: scale(0.99); }
+  .btn-accept:hover:not(:disabled) { background: #3a6aeb; }
+  .btn-accept:active:not(:disabled) { transform: scale(0.99); }
+  .btn-accept:disabled {
+    background: #333;
+    color: #666;
+    cursor: not-allowed;
+  }
 </style>
 </head>
 <body>
@@ -87,10 +139,33 @@
     </ol>
   </div>
 
-  <button class="btn-accept" onclick="acceptDisclaimer()">Принять</button>
+  <!-- ОБЯЗАТЕЛЬНО К ПРОЧТЕНИЮ -->
+  <div class="must-read">
+    <div class="mr-title">🚫 Обязательно к прочтению</div>
+    <p class="mr-text">
+      Этот сайт — <strong>не место для травли</strong>. Запрещено публиковать угрозы,
+      оскорбления, унижения, призывы к насилию, целенаправленную травлю и преследование
+      конкретных людей. Подобные материалы будут удаляться, а аккаунты — блокироваться
+      без предупреждения. Если вы стали свидетелем травли — сообщите администрации.
+    </p>
+  </div>
+
+  <label class="agree-row">
+    <input type="checkbox" id="agreeAll">
+    <span>Я прочитал(а) уведомление и правила, согласен(на) с ними, и обязуюсь не использовать сайт для травли, оскорблений и преследования других людей.</span>
+  </label>
+
+  <button class="btn-accept" id="acceptBtn" onclick="acceptDisclaimer()" disabled>Принять</button>
 </div>
 
 <script>
+  const agreeAll = document.getElementById('agreeAll');
+  const acceptBtn = document.getElementById('acceptBtn');
+
+  agreeAll.addEventListener('change', () => {
+    acceptBtn.disabled = !agreeAll.checked;
+  });
+
   function acceptDisclaimer() {
     localStorage.setItem('disclaimerAccepted', 'true');
     window.location.href = 'next.html';
