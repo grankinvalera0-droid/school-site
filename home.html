@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Главная — Школьные слухи</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background: #141414;
+    color: #e8e8e8;
+    padding: 0 0 60px;
+  }
+
+  /* ==== ШАПКА ==== */
+  .topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 24px;
+    background: #1c1c1c;
+    border-bottom: 1px solid #2e2e2e;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    font-size: 13.5px;
+    color: #c9c9c9;
+    background: #242424;
+    border: 1px solid #3a3a3a;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .topbar-btn:hover {
+    background: #2e2e2e;
+    border-color: #4a4a4a;
+    color: #fff;
+  }
+  .topbar-btn .icon { font-size: 15px; }
+
+  /* ==== ПОИСК ==== */
+  .search-section {
+    max-width: 900px;
+    margin: 28px auto 0;
+    padding: 0 24px;
+  }
+  .search-bar {
+    display: flex;
+    gap: 10px;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .search-bar input[type="text"] {
+    flex: 1;
+    min-width: 180px;
+    padding: 11px 14px;
+    font-size: 14.5px;
+    color: #fff;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: inherit;
+  }
+  .search-bar input[type="text"]::placeholder { color: #666; }
+
+  .year-range {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: #888;
+    padding: 0 10px;
+    border-left: 1px solid #333;
+  }
+  .year-range input[type="number"] {
+    width: 72px;
+    padding: 7px 8px;
+    font-size: 13.5px;
+    color: #fff;
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 6px;
+    outline: none;
+    font-family: inherit;
+    text-align: center;
+    -moz-appearance: textfield;
+  }
+  .year-range input[type="number"]::-webkit-outer-spin-button,
+  .year-range input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  .year-range input[type="number"]:focus { border-color: #4a7cff; }
+
+  .sort-select {
+    padding: 9px 10px;
+    font-size: 13px;
+    color: #c9c9c9;
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 6px;
+    outline: none;
+    font-family: inherit;
+    cursor: pointer;
+  }
+  .sort-select:focus { border-color: #4a7cff; }
+
+  .search-btn {
+    padding: 11px 20px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #fff;
+    background: #4a7cff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+  }
+  .search-btn:hover { background: #3a6aeb; }
+
+  /* ==== СЕТКА 5 КНОПОК ==== */
+  .main-grid {
+    max-width: 900px;
+    margin: 32px auto 0;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+  .grid-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 28px 18px;
+    font-size: 14.5px;
+    font-weight: 500;
+    color: #e8e8e8;
+    background: #1e1e1e;
+    border: 1px solid #2e2e2e;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    text-align: center;
+    min-height: 130px;
+  }
+  .grid-btn:hover {
+    background: #262626;
+    border-color: #4a7cff;
+    transform: translateY(-2px);
+  }
+  .grid-btn .icon { font-size: 26px; }
+
+  /* Позиции в сетке */
+  .grid-btn.tl { grid-column: 1; grid-row: 1; }
+  .grid-btn.tr { grid-column: 3; grid-row: 1; }
+  .grid-btn.center {
+    grid-column: 2;
+    grid-row: 2;
+    background: #212a3d;
+    border-color: #3a4a6a;
+    min-height: 160px;
+  }
+  .grid-btn.center:hover { border-color: #4a7cff; background: #253048; }
+  .grid-btn.bl { grid-column: 1; grid-row: 3; }
+  .grid-btn.br { grid-column: 3; grid-row: 3; }
+
+  /* ==== РЕЗУЛЬТАТЫ ==== */
+  .results {
+    max-width: 900px;
+    margin: 36px auto 0;
+    padding: 0 24px;
+  }
+  .results h2 {
+    font-size: 13.5px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0 0 14px;
+  }
+  .article {
+    background: #1e1e1e;
+    border: 1px solid #2e2e2e;
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 10px;
+    transition: border-color 0.2s;
+  }
+  .article:hover { border-color: #3a3a3a; }
+  .article .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .article .title {
+    font-size: 15.5px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .article .date {
+    font-size: 12px;
+    color: #888;
+    background: #262626;
+    padding: 3px 9px;
+    border-radius: 5px;
+  }
+  .article .body {
+    font-size: 13.5px;
+    color: #b0b0b0;
+    line-height: 1.55;
+    margin: 0 0 10px;
+  }
+  .article .author {
+    font-size: 12.5px;
+    color: #4a7cff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+  }
+  .article .author:hover { text-decoration: underline; }
+
+  .no-results {
+    text-align: center;
+    color: #666;
+    font-size: 13.5px;
+    padding: 40px 0;
+  }
+
+  /* ==== МОДАЛКА ПРОФИЛЯ ==== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.72);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+    padding: 20px;
+  }
+  .modal-overlay.active { display: flex; }
+  .profile-modal {
+    background: #242424;
+    border: 1px solid #3a3a3a;
+    border-radius: 12px;
+    max-width: 380px;
+    width: 100%;
+    padding: 32px 28px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+  }
+  .profile-modal .avatar {
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: #2e2e2e;
+    border: 1px solid #3a3a3a;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: #666;
+    background-size: cover;
+    background-position: center;
+  }
+  .profile-modal .name {
+    font-size: 19px;
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .profile-modal .bio {
+    font-size: 13.5px;
+    color: #999;
+    margin-bottom: 20px;
+    line-height: 1.55;
+  }
+  .profile-modal .stats-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .profile-modal .stat-mini {
+    flex: 1;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 7px;
+    padding: 10px;
+  }
+  .profile-modal .stat-mini .n {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .profile-modal .stat-mini .l {
+    font-size: 10.5px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 3px;
+  }
+  .btn-add-friend {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    background: #4a7cff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+    margin-bottom: 8px;
+  }
+  .btn-add-friend:hover { background: #3a6aeb; }
+  .btn-add-friend.added {
+    background: #2e5a2e;
+    cursor: default;
+  }
+  .btn-add-friend.added:hover { background: #2e5a2e; }
+
+  .btn-close {
+    background: transparent;
+    border: none;
+    color: #777;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 6px;
+  }
+  .btn-close:hover { color: #aaa; }
+
+  @media (max-width: 640px) {
+    .main-grid {
+      grid-template-columns: 1fr;
+    }
+    .grid-btn.tl, .grid-btn.tr, .grid-btn.bl, .grid-btn.br, .grid-btn.center {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .year-range { border-left: none; padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==== ШАПКА ==== -->
+<div class="topbar">
+  <button class="topbar-btn" onclick="openAdminMessages()">
+    <span class="icon">📢</span>
+    <span>Сообщение администрации</span>
+  </button>
+  <button class="topbar-btn" onclick="openMyProfile()">
+    <span class="icon">👤</span>
+    <span id="myProfileName">Профиль</span>
+  </button>
+</div>
+
+<!-- ==== ПОИСК ==== -->
+<div class="search-section">
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Поиск по ключевым словам…"
+           onkeydown="if(event.key==='Enter') doSearch()">
+
+    <div class="year-range">
+      <span>с</span>
+      <input type="number" id="yearMin" value="1993" min="1993" max="2027">
+      <span>по</span>
+      <input type="number" id="yearMax" value="2027" min="1993" max="2027">
+    </div>
+
+    <select class="sort-select" id="sortOrder">
+      <option value="desc">Сначала новые</option>
+      <option value="asc">Сначала старые</option>
+    </select>
+
+    <button class="search-btn" onclick="doSearch()">Найти</button>
+  </div>
+</div>
+
+<!-- ==== 5 КНОПОК ==== -->
+<div class="main-grid">
+  <button class="grid-btn tl" onclick="alert('Раздел «Айсберг» в разработке.')">
+    <span class="icon">🧊</span>
+    <span>Айсберг</span>
+  </button>
+
+  <button class="grid-btn tr" onclick="alert('Форма «Предложить слух» появится позже.')">
+    <span class="icon">✍️</span>
+    <span>Предложить слух</span>
+  </button>
+
+  <button class="grid-btn center" onclick="openMessages()">
+    <span class="icon">💬</span>
+    <span>Личные сообщения</span>
+  </button>
+
+  <button class="grid-btn bl" onclick="alert('Список учителей и учеников появится позже.')">
+    <span class="icon">🎓</span>
+    <span>Учителя и ученики</span>
+  </button>
+
+  <button class="grid-btn br" onclick="alert('Голосование за место на айсберге появится позже.')">
+    <span class="icon">🗳️</span>
+    <span>Голосование за место на айсберге</span>
+  </button>
+</div>
+
+<!-- ==== РЕЗУЛЬТАТЫ ==== -->
+<div class="results" id="resultsBlock" style="display:none;">
+  <h2 id="resultsTitle">Результаты поиска</h2>
+  <div id="resultsList"></div>
+</div>
+
+<!-- ==== МОДАЛКА ПРОФИЛЯ ==== -->
+<div class="modal-overlay" id="profileOverlay" onclick="if(event.target===this) closeProfile()">
+  <div class="profile-modal">
+    <div class="avatar" id="pAvatar">👤</div>
+    <div class="name" id="pName">—</div>
+    <div class="bio" id="pBio">—</div>
+    <div class="stats-row">
+      <div class="stat-mini">
+        <div class="n" id="pSent">0</div>
+        <div class="l">Слухов отправлено</div>
+      </div>
+      <div class="stat-mini">
+        <div class="n" id="pConfirmed">0</div>
+        <div class="l">Подтверждено</div>
+      </div>
+    </div>
+    <button class="btn-add-friend" id="pAddBtn" onclick="toggleFriend()">Добавить в друзья</button>
+    <button class="btn-close" onclick="closeProfile()">Закрыть</button>
+  </div>
+</div>
+
+<script>
+  // ==== ТЕСТОВЫЕ СТАТЬИ (потом заменим на реальные) ====
+  const articles = [
+    { id: 1, title: 'Пропала книга из библиотеки', body: 'В школьной библиотеке пропал редкий экземпляр…', year: 2015, author: 'night_owl' },
+    { id: 2, title: 'Дискотека в спортзале',        body: 'В спортзале прошла легендарная дискотека…',   year: 2003, author: 'mask_42' },
+    { id: 3, title: 'Слух о призраке в подвале',   body: 'Старшеклассники рассказывали о странных звуках…', year: 1999, author: 'anon_x7k2' },
+    { id: 4, title: 'Новый директор',              body: 'Школу возглавил новый директор…',           year: 2020, author: 'night_owl' },
+    { id: 5, title: 'Сгоревший кабинет химии',     body: 'Произошло возгорание в кабинете химии…',      year: 1993, author: 'mask_42' },
+    { id: 6, title: 'Ремонт актового зала',        body: 'Запланирован капитальный ремонт…',            year: 2026, author: 'anon_x7k2' },
+  ];
+
+  // ==== ПОИСК + СОРТИРОВКА ====
+  function doSearch() {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    const yMin = parseInt(document.getElementById('yearMin').value) || 1993;
+    const yMax = parseInt(document.getElementById('yearMax').value) || 2027;
+    const order = document.getElementById('sortOrder').value;
+
+    const filtered = articles.filter(a => {
+      if (a.year < yMin || a.year > yMax) return false;
+      if (!q) return true;
+      return a.title.toLowerCase().includes(q)
+          || a.body.toLowerCase().includes(q)
+          || a.author.toLowerCase().includes(q);
+    });
+
+    filtered.sort((a, b) => order === 'asc' ? a.year - b.year : b.year - a.year);
+
+    const block = document.getElementById('resultsBlock');
+    const list = document.getElementById('resultsList');
+    const title = document.getElementById('resultsTitle');
+
+    block.style.display = 'block';
+    title.textContent = q
+      ? `Результаты по «${q}» (${yMin}–${yMax}) — найдено: ${filtered.length}`
+      : `Все статьи (${yMin}–${yMax}) — найдено: ${filtered.length}`;
+
+    if (filtered.length === 0) {
+      list.innerHTML = '<div class="no-results">Ничего не найдено. Попробуйте изменить запрос или диапазон лет.</div>';
+      return;
+    }
+
+    list.innerHTML = filtered.map(a => `
+      <div class="article">
+        <div class="head">
+          <div class="title">${esc(a.title)}</div>
+          <div class="date">${a.year}</div>
+        </div>
+        <p class="body">${esc(a.body)}</p>
+        <button class="author" onclick="openUserProfile('${esc(a.author)}')">👤 ${esc(a.author)}</button>
+      </div>
+    `).join('');
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[c]));
+  }
+
+  // ==== ПРОФИЛЬ ====
+  let currentProfileUser = null;
+
+  function openUserProfile(username) {
+    currentProfileUser = username;
+    document.getElementById('pName').textContent = username;
+    document.getElementById('pBio').textContent = 'Пользователь школы.';
+    document.getElementById('pSent').textContent = '0';
+    document.getElementById('pConfirmed').textContent = '0';
+
+    const friends = getFriends();
+    const btn = document.getElementById('pAddBtn');
+    if (friends.includes(username)) {
+      btn.textContent = '✓ В друзьях';
+      btn.classList.add('added');
+    } else {
+      btn.textContent = 'Добавить в друзья';
+      btn.classList.remove('added');
+    }
+    document.getElementById('profileOverlay').classList.add('active');
+  }
+
+  function closeProfile() {
+    document.getElementById('profileOverlay').classList.remove('active');
+    currentProfileUser = null;
+  }
+
+  function toggleFriend() {
+    if (!currentProfileUser) return;
+    const friends = getFriends();
+    const idx = friends.indexOf(currentProfileUser);
+    const btn = document.getElementById('pAddBtn');
+
+    if (idx === -1) {
+      friends.push(currentProfileUser);
+      btn.textContent = '✓ В друзьях';
+      btn.classList.add('added');
+    } else {
+      friends.splice(idx, 1);
+      btn.textContent = 'Добавить в друзья';
+      btn.classList.remove('added');
+    }
+    localStorage.setItem('friends', JSON.stringify(friends));
+  }
+
+  function getFriends() {
+    try { return JSON.parse(localStorage.getItem('friends') || '[]'); }
+    catch { return []; }
+  }
+
+  // ==== ЛИЧНЫЕ СООБЩЕНИЯ ====
+  function openMessages() {
+    const friends = getFriends();
+    if (friends.length === 0) {
+      alert('Личные сообщения пусты.\n\nДобавьте друзей, нажав на имя автора в любой статье.');
+    } else {
+      alert('Ваши друзья (будут доступны в ЛС):\n\n• ' + friends.join('\n• '));
+    }
+  }
+
+  // ==== СООБЩЕНИЯ АДМИНИСТРАЦИИ ====
+  function openAdminMessages() {
+    alert('📢 Сообщений от администрации пока нет.\n\nЗдесь будут появляться важные объявления.');
+  }
+
+  // ==== МОЙ ПРОФИЛЬ ====
+  function openMyProfile() {
+    const raw = localStorage.getItem('profile');
+    if (!raw) {
+      alert('Профиль не создан. Вернитесь на страницу регистрации.');
+      return;
+    }
+    try {
+      const p = JSON.parse(raw);
+      alert(
+        `Ваш профиль:\n\n` +
+        `Username: ${p.username}\n` +
+        `Описание: ${p.bio || '—'}\n\n` +
+        `Слухов отправлено: ${p.rumorsSent || 0}\n` +
+        `Слухов подтверждено: ${p.rumorsConfirmed || 0}`
+      );
+    } catch {
+      alert('Профиль повреждён.');
+    }
+  }
+
+  // Показываем username в шапке
+  window.addEventListener('DOMContentLoaded', () => {
+    const raw = localStorage.getItem('profile');
+    if (raw) {
+      try {
+        const p = JSON.parse(raw);
+        if (p.username) {
+          document.getElementById('myProfileName').textContent = p.username;
+        }
+      } catch {}
+    }
+  });
+</script>
+
+</body>
+</html>
