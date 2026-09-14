@@ -407,19 +407,19 @@
     background: #1e1e1e;
     border: 1px solid #333;
     border-radius: 7px;
-    padding: 10px;
+    padding: 14px 10px;
   }
   .profile-modal .stat-mini .n {
-    font-size: 18px;
+    font-size: 22px;
     font-weight: 700;
     color: #fff;
   }
   .profile-modal .stat-mini .l {
-    font-size: 10.5px;
+    font-size: 11px;
     color: #888;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-top: 3px;
+    margin-top: 4px;
   }
   .btn-add-friend {
     display: block;
@@ -542,12 +542,8 @@
     <div class="bio" id="pBio">—</div>
     <div class="stats-row">
       <div class="stat-mini">
-        <div class="n" id="pSent">0</div>
-        <div class="l">Слухов отправлено</div>
-      </div>
-      <div class="stat-mini">
-        <div class="n" id="pConfirmed">0</div>
-        <div class="l">Подтверждено</div>
+        <div class="n" id="pPublished">0</div>
+        <div class="l">Слухов опубликовано</div>
       </div>
     </div>
     <button class="btn-add-friend" id="pAddBtn" onclick="toggleFriend()">Добавить в друзья</button>
@@ -615,8 +611,7 @@
     currentProfileUser = username;
     document.getElementById('pName').textContent = username;
     document.getElementById('pBio').textContent = 'Пользователь школы.';
-    document.getElementById('pSent').textContent = '0';
-    document.getElementById('pConfirmed').textContent = '0';
+    document.getElementById('pPublished').textContent = '0';
 
     const friends = getFriends();
     const btn = document.getElementById('pAddBtn');
@@ -686,8 +681,7 @@
         `Ваш профиль:\n\n` +
         `Username: ${p.username}\n` +
         `Описание: ${p.bio || '—'}\n\n` +
-        `Слухов отправлено: ${p.rumorsSent || 0}\n` +
-        `Слухов подтверждено: ${p.rumorsConfirmed || 0}`
+        `Слухов опубликовано: ${p.rumorsPublished || 0}`
       );
     } catch {
       alert('Профиль повреждён.');
