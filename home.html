@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Главная — Школьные слухи</title>
+<title>Айсберг — Школьные слухи</title>
 <style>
   * { box-sizing: border-box; }
   body {
     margin: 0;
     min-height: 100vh;
     font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-    background: #141414;
+    background: #0a0e1a;
     color: #e8e8e8;
     padding: 0 0 60px;
   }
@@ -21,489 +21,495 @@
     justify-content: space-between;
     align-items: center;
     padding: 14px 24px;
-    background: #1c1c1c;
-    border-bottom: 1px solid #2e2e2e;
+    background: #101724;
+    border-bottom: 1px solid #1e2a42;
     position: sticky;
     top: 0;
     z-index: 100;
   }
-  .topbar-btn {
+  .back-btn {
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 9px 16px;
     font-size: 13.5px;
     color: #c9c9c9;
-    background: #242424;
-    border: 1px solid #3a3a3a;
+    background: #1a2438;
+    border: 1px solid #2a3a5a;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
     font-family: inherit;
+    text-decoration: none;
   }
-  .topbar-btn:hover {
-    background: #2e2e2e;
-    border-color: #4a4a4a;
+  .back-btn:hover {
+    background: #24314a;
+    border-color: #4a7cff;
     color: #fff;
   }
-  .topbar-btn .icon { font-size: 15px; }
-
-  /* ==== ПОИСК ==== */
-  .search-section {
-    max-width: 900px;
-    margin: 28px auto 0;
-    padding: 0 24px;
-  }
-  .search-bar {
-    display: flex;
-    gap: 10px;
-    background: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 10px;
-    padding: 8px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .search-bar input[type="text"] {
-    flex: 1;
-    min-width: 180px;
-    padding: 11px 14px;
-    font-size: 14.5px;
-    color: #fff;
-    background: transparent;
-    border: none;
-    outline: none;
-    font-family: inherit;
-  }
-  .search-bar input[type="text"]::placeholder { color: #666; }
-
-  .year-range {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: #888;
-    padding: 0 10px;
-    border-left: 1px solid #333;
-  }
-  .year-range input[type="number"] {
-    width: 72px;
-    padding: 7px 8px;
-    font-size: 13.5px;
-    color: #fff;
-    background: #2a2a2a;
-    border: 1px solid #3a3a3a;
-    border-radius: 6px;
-    outline: none;
-    font-family: inherit;
-    text-align: center;
-    -moz-appearance: textfield;
-  }
-  .year-range input[type="number"]::-webkit-outer-spin-button,
-  .year-range input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-  .year-range input[type="number"]:focus { border-color: #4a7cff; }
-
-  .sort-select {
-    padding: 9px 10px;
-    font-size: 13px;
-    color: #c9c9c9;
-    background: #2a2a2a;
-    border: 1px solid #3a3a3a;
-    border-radius: 6px;
-    outline: none;
-    font-family: inherit;
-    cursor: pointer;
-  }
-  .sort-select:focus { border-color: #4a7cff; }
-
-  .search-btn {
-    padding: 11px 20px;
-    font-size: 13.5px;
+  .topbar-title {
+    font-size: 15px;
     font-weight: 600;
     color: #fff;
-    background: #4a7cff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-family: inherit;
-  }
-  .search-btn:hover { background: #3a6aeb; }
-
-  /* ==== СЕТКА 5 КНОПОК ==== */
-  .main-grid {
-    max-width: 900px;
-    margin: 32px auto 0;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 14px;
-  }
-  .grid-btn {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 28px 18px;
-    font-size: 14.5px;
-    font-weight: 500;
-    color: #e8e8e8;
-    background: #1e1e1e;
-    border: 1px solid #2e2e2e;
-    border-radius: 12px;
+    gap: 8px;
+  }
+  .my-profile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    font-size: 13.5px;
+    color: #c9c9c9;
+    background: #1a2438;
+    border: 1px solid #2a3a5a;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
     font-family: inherit;
-    text-align: center;
-    min-height: 130px;
   }
-  .grid-btn:hover {
-    background: #262626;
+  .my-profile:hover {
+    background: #24314a;
     border-color: #4a7cff;
-    transform: translateY(-2px);
+    color: #fff;
   }
-  .grid-btn .icon { font-size: 26px; }
 
-  /* Позиции в сетке */
-  .grid-btn.tl { grid-column: 1; grid-row: 1; }
-  .grid-btn.tr { grid-column: 3; grid-row: 1; }
-  .grid-btn.center {
-    grid-column: 2;
-    grid-row: 2;
-    background: #212a3d;
-    border-color: #3a4a6a;
-    min-height: 160px;
-  }
-  .grid-btn.center:hover { border-color: #4a7cff; background: #253048; }
-  .grid-btn.bl { grid-column: 1; grid-row: 3; }
-  .grid-btn.br { grid-column: 3; grid-row: 3; }
-
-  /* ==== РЕЗУЛЬТАТЫ ==== */
-  .results {
-    max-width: 900px;
-    margin: 36px auto 0;
+  /* ==== ЗАГОЛОВОК ==== */
+  .hero {
+    max-width: 780px;
+    margin: 32px auto 0;
     padding: 0 24px;
+    text-align: center;
   }
-  .results h2 {
-    font-size: 13.5px;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin: 0 0 14px;
+  .hero h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 10px;
+    letter-spacing: 0.5px;
   }
-  .article {
-    background: #1e1e1e;
-    border: 1px solid #2e2e2e;
+  .hero p {
+    font-size: 14px;
+    color: #8a9ab5;
+    line-height: 1.6;
+    margin: 0 0 8px;
+  }
+  .hero .hint {
+    font-size: 12.5px;
+    color: #5a6a85;
+    margin-top: 10px;
+  }
+
+  /* ==== СХЕМА ГРАДУСНИКА ==== */
+  .legend {
+    max-width: 780px;
+    margin: 20px auto 0;
+    padding: 0 24px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: #7a8aa5;
+  }
+  .legend .dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  /* ==== АЙСБЕРГ ==== */
+  .iceberg {
+    max-width: 780px;
+    margin: 28px auto 0;
+    padding: 0 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .level {
+    position: relative;
     border-radius: 10px;
-    padding: 18px 20px;
-    margin-bottom: 10px;
-    transition: border-color 0.2s;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.25s, border-color 0.2s;
+    cursor: pointer;
+    border: 1px solid transparent;
   }
-  .article:hover { border-color: #3a3a3a; }
-  .article .head {
+  .level:hover {
+    transform: translateX(4px);
+    box-shadow: 0 6px 22px rgba(0,0,0,0.5);
+  }
+
+  .level .level-inner {
+    padding: 18px 22px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 8px;
-    flex-wrap: wrap;
-    gap: 8px;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
   }
-  .article .title {
+  .level .level-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .level .level-title {
     font-size: 15.5px;
     font-weight: 600;
     color: #fff;
-  }
-  .article .date {
-    font-size: 12px;
-    color: #888;
-    background: #262626;
-    padding: 3px 9px;
-    border-radius: 5px;
-  }
-  .article .body {
-    font-size: 13.5px;
-    color: #b0b0b0;
-    line-height: 1.55;
-    margin: 0 0 10px;
-  }
-  .article .author {
-    font-size: 12.5px;
-    color: #4a7cff;
-    cursor: pointer;
-    display: inline-flex;
+    margin-bottom: 4px;
+    display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
+  }
+  .level .level-title .num {
+    font-size: 11.5px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.15);
+    padding: 2px 8px;
+    border-radius: 5px;
+    letter-spacing: 0.5px;
+  }
+  .level .level-desc {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+  }
+  .level .level-count {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    background: rgba(0,0,0,0.25);
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+  }
+
+  .level .level-arrow {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    transition: transform 0.25s;
+    margin-left: 4px;
+  }
+  .level.open .level-arrow { transform: rotate(90deg); }
+
+  /* ==== РАСКРЫТЫЕ СЛУХИ ==== */
+  .level-rumors {
+    display: none;
+    background: rgba(0,0,0,0.35);
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 14px 22px 18px;
+    position: relative;
+    z-index: 2;
+  }
+  .level.open .level-rumors { display: block; }
+
+  .rumor-item {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .rumor-item:last-child { border-bottom: none; }
+  .rumor-item .r-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 5px;
+  }
+  .rumor-item .r-body {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.55;
+    margin: 0 0 6px;
+  }
+  .rumor-item .r-meta {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.5);
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .rumor-item .r-author {
+    color: #6ab0ff;
+    cursor: pointer;
     background: none;
     border: none;
     padding: 0;
     font-family: inherit;
+    font-size: 11.5px;
   }
-  .article .author:hover { text-decoration: underline; }
+  .rumor-item .r-author:hover { text-decoration: underline; }
 
-  .no-results {
-    text-align: center;
-    color: #666;
-    font-size: 13.5px;
-    padding: 40px 0;
+  .level-empty {
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.45);
+    font-style: italic;
+    padding: 6px 0;
   }
 
-  /* ==== МОДАЛКА ПРОФИЛЯ ==== */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.72);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 200;
-    padding: 20px;
-  }
-  .modal-overlay.active { display: flex; }
-  .profile-modal {
-    background: #242424;
-    border: 1px solid #3a3a3a;
-    border-radius: 12px;
-    max-width: 380px;
-    width: 100%;
-    padding: 32px 28px;
+  /* ==== ЦВЕТА УРОВНЕЙ (от светлого к тёмному) ==== */
+  .lvl-1 { background: linear-gradient(135deg, #7ec8f0 0%, #4a9fd8 100%); border-color: #7ec8f0; }
+  .lvl-2 { background: linear-gradient(135deg, #4a9fd8 0%, #2e78b8 100%); border-color: #4a9fd8; }
+  .lvl-3 { background: linear-gradient(135deg, #2e78b8 0%, #1f5a92 100%); border-color: #2e78b8; }
+  .lvl-4 { background: linear-gradient(135deg, #1f5a92 0%, #15406e 100%); border-color: #1f5a92; }
+  .lvl-5 { background: linear-gradient(135deg, #15406e 0%, #0e2c50 100%); border-color: #15406e; }
+  .lvl-6 { background: linear-gradient(135deg, #0e2c50 0%, #081a35 100%); border-color: #0e2c50; }
+  .lvl-7 { background: linear-gradient(135deg, #081a35 0%, #040b1c 100%); border-color: #081a35; }
+  .lvl-8 { background: linear-gradient(135deg, #040b1c 0%, #000000 100%); border-color: #040b1c; }
+  .lvl-8 .level-title { color: #ff6a6a; }
+  .lvl-8 .level-title .num { background: rgba(255, 60, 60, 0.25); color: #ff9a9a; }
+
+  /* ==== ФИНАЛЬНАЯ ПЛАШКА ==== */
+  .bottom-note {
+    max-width: 780px;
+    margin: 32px auto 0;
+    padding: 0 24px;
     text-align: center;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
   }
-  .profile-modal .avatar {
-    width: 84px;
-    height: 84px;
-    border-radius: 50%;
-    background: #2e2e2e;
-    border: 1px solid #3a3a3a;
-    margin: 0 auto 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
-    color: #666;
-    background-size: cover;
-    background-position: center;
-  }
-  .profile-modal .name {
-    font-size: 19px;
-    color: #fff;
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-  .profile-modal .bio {
-    font-size: 13.5px;
-    color: #999;
-    margin-bottom: 20px;
-    line-height: 1.55;
-  }
-  .profile-modal .stats-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 22px;
-  }
-  .profile-modal .stat-mini {
-    flex: 1;
-    background: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 7px;
-    padding: 10px;
-  }
-  .profile-modal .stat-mini .n {
-    font-size: 18px;
-    font-weight: 700;
-    color: #fff;
-  }
-  .profile-modal .stat-mini .l {
-    font-size: 10.5px;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-top: 3px;
-  }
-  .btn-add-friend {
-    display: block;
-    width: 100%;
-    padding: 12px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #fff;
-    background: #4a7cff;
-    border: none;
+  .bottom-note .box {
+    background: #101724;
+    border: 1px solid #1e2a42;
+    border-left: 3px solid #d94a4a;
     border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.2s;
-    font-family: inherit;
+    padding: 16px 20px;
+    text-align: left;
+  }
+  .bottom-note .box .title {
+    font-size: 13px;
+    color: #ff7a7a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
     margin-bottom: 8px;
   }
-  .btn-add-friend:hover { background: #3a6aeb; }
-  .btn-add-friend.added {
-    background: #2e5a2e;
-    cursor: default;
-  }
-  .btn-add-friend.added:hover { background: #2e5a2e; }
-
-  .btn-close {
-    background: transparent;
-    border: none;
-    color: #777;
+  .bottom-note .box .text {
     font-size: 13px;
-    cursor: pointer;
-    font-family: inherit;
-    padding: 6px;
+    color: #b0b8c8;
+    line-height: 1.6;
+    margin: 0;
   }
-  .btn-close:hover { color: #aaa; }
 
-  @media (max-width: 640px) {
-    .main-grid {
-      grid-template-columns: 1fr;
-    }
-    .grid-btn.tl, .grid-btn.tr, .grid-btn.bl, .grid-btn.br, .grid-btn.center {
-      grid-column: 1;
-      grid-row: auto;
-    }
-    .year-range { border-left: none; padding-left: 0; }
+  @media (max-width: 600px) {
+    .level .level-inner { padding: 15px 16px; flex-wrap: wrap; }
+    .level .level-count { font-size: 11.5px; padding: 4px 9px; }
+    .hero h1 { font-size: 22px; }
+    .topbar-title { display: none; }
   }
 </style>
 </head>
 <body>
 
-<!-- ==== ШАПКА ==== -->
-<div class="topbar">
-  <button class="topbar-btn" onclick="openAdminMessages()">
-    <span class="icon">📢</span>
-    <span>Сообщение администрации</span>
-  </button>
-  <button class="topbar-btn" onclick="openMyProfile()">
-    <span class="icon">👤</span>
-    <span id="myProfileName">Профиль</span>
-  </button>
+<button class="grid-btn tl iceberg-btn" onclick="window.location.href='iceberg.html'">
+  <span class="iceberg-label">🧊 Айсберг</span>
+</button>
+
+<!-- ==== ЗАГОЛОВОК ==== -->
+<div class="hero">
+  <h1>🧊 Айсберг школьных слухов</h1>
+  <p>Чем глубже — тем мрачнее и таинственнее. Уровни от «все знают» до «никто не должен знать».</p>
+  <p class="hint">Нажмите на уровень, чтобы раскрыть слухи</p>
 </div>
 
-<!-- ==== ПОИСК ==== -->
-<div class="search-section">
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Поиск по ключевым словам…"
-           onkeydown="if(event.key==='Enter') doSearch()">
+<!-- ==== ЛЕГЕНДА ==== -->
+<div class="legend">
+  <span><span class="dot" style="background:#7ec8f0"></span>Всем известно</span>
+  <span><span class="dot" style="background:#2e78b8"></span>Полусекрет</span>
+  <span><span class="dot" style="background:#0e2c50"></span>Глубина</span>
+  <span><span class="dot" style="background:#000000"></span>Никому не говори</span>
+</div>
 
-    <div class="year-range">
-      <span>с</span>
-      <input type="number" id="yearMin" value="1993" min="1993" max="2027">
-      <span>по</span>
-      <input type="number" id="yearMax" value="2027" min="1993" max="2027">
+<!-- ==== АЙСБЕРГ ==== -->
+<div class="iceberg" id="iceberg">
+
+  <!-- Уровень 1 -->
+  <div class="level lvl-1" onclick="toggleLevel(this)">
+    <div class="level-inner">
+      <div class="level-info">
+        <div class="level-title"><span class="num">1</span> Поверхность</div>
+        <div class="level-desc">То, что знают все: открытые события, общие истории.</div>
+      </div>
+      <div class="level-count" data-count>0 слухов</div>
+      <div class="level-arrow">▶</div>
     </div>
-
-    <select class="sort-select" id="sortOrder">
-      <option value="desc">Сначала новые</option>
-      <option value="asc">Сначала старые</option>
-    </select>
-
-    <button class="search-btn" onclick="doSearch()">Найти</button>
+    <div class="level-rumors" data-rumors>
+      <div class="level-empty">Пока пусто. Слухи этого уровня появятся здесь.</div>
+    </div>
   </div>
-</div>
 
-<!-- ==== 5 КНОПОК ==== -->
-<div class="main-grid">
-  <button class="grid-btn tl" onclick="alert('Раздел «Айсберг» в разработке.')">
-    <span class="icon">🧊</span>
-    <span>Айсберг</span>
-  </button>
-
-  <button class="grid-btn tr" onclick="alert('Форма «Предложить слух» появится позже.')">
-    <span class="icon">✍️</span>
-    <span>Предложить слух</span>
-  </button>
-
-  <button class="grid-btn center" onclick="openMessages()">
-    <span class="icon">💬</span>
-    <span>Личные сообщения</span>
-  </button>
-
-  <button class="grid-btn bl" onclick="alert('Список учителей и учеников появится позже.')">
-    <span class="icon">🎓</span>
-    <span>Учителя и ученики</span>
-  </button>
-
-  <button class="grid-btn br" onclick="alert('Голосование за место на айсберге появится позже.')">
-    <span class="icon">🗳️</span>
-    <span>Голосование за место на айсберге</span>
-  </button>
-</div>
-
-<!-- ==== РЕЗУЛЬТАТЫ ==== -->
-<div class="results" id="resultsBlock" style="display:none;">
-  <h2 id="resultsTitle">Результаты поиска</h2>
-  <div id="resultsList"></div>
-</div>
-
-<!-- ==== МОДАЛКА ПРОФИЛЯ ==== -->
-<div class="modal-overlay" id="profileOverlay" onclick="if(event.target===this) closeProfile()">
-  <div class="profile-modal">
-    <div class="avatar" id="pAvatar">👤</div>
-    <div class="name" id="pName">—</div>
-    <div class="bio" id="pBio">—</div>
-    <div class="stats-row">
-      <div class="stat-mini">
-        <div class="n" id="pSent">0</div>
-        <div class="l">Слухов отправлено</div>
+  <!-- Уровень 2 -->
+  <div class="level lvl-2" onclick="toggleLevel(this)">
+    <div class="level-inner">
+      <div class="level-info">
+        <div class="level-title"><span class="num">2</span> Мелководье</div>
+        <div class="level-desc">Известно большинству, но обсуждается шёпотом.</div>
       </div>
-      <div class="stat-mini">
-        <div class="n" id="pConfirmed">0</div>
-        <div class="l">Подтверждено</div>
-      </div>
+      <div class="level-count" data-count>0 слухов</div>
+      <div class="level-arrow">▶</div>
     </div>
-    <button class="btn-add-friend" id="pAddBtn" onclick="toggleFriend()">Добавить в друзья</button>
-    <button class="btn-close" onclick="closeProfile()">Закрыть</button>
+    <div class="level-rumors" data-rumors>
+      <div class="level-empty">Пока пусто.</div>
+    </div>
+  </div>
+
+  <!-- Уровень 3 -->
+  <div class="level lvl-3" onclick="toggleLevel(this)">
+    <div class="level-inner">
+      <div class="level-info">
+        <div class="level-title"><span class="num">3</span> Погружение</div>
+        <div class="level-desc">Истории, которые рассказывают только «своим».</div>
+      </div>
+      <div class="level-count" data-count>0 слухов</div>
+      <div class="level-arrow">▶</div>
+    </div>
+    <div class="level-rumors" data-rumors>
+      <div class="level-empty">Пока пусто.</div>
+    </div>
+  </div>
+
+  <!-- Уровень 4 -->
+  <div class="level lvl-4" onclick="toggleLevel(this)">
+    <div class="level-inner">
+      <div class="level-info">
+        <div class="level-title"><span class="num">4</span> Глубина</div>
+        <div class="level-desc">Слухи, за которые могут «попросить не рассказывать».</div>
+      </div>
+      <div class="level-count" data-count>0 слухов</div>
+      <div class="level-arrow">▶</div>
+    </div>
+    <div class="level-rumors" data-rumors>
+      <div class="level-empty">Пока пусто.</div>
+    </div>
+  </div>
+
+  <!-- Уровень 5 -->
+  <div class="level lvl-5" onclick="toggleLevel(this)">
+    <div class="level-inner">
+      <div class="level-info">
+        <div class="level-title"><span class="num">5</span> Тёмная зона</div>
+        <div class="level-desc">Об этом не говорят вслух. Но все знают, что оно есть.</div>
+      </div>
+      <div class="level-count" data-count>0 слухов</div>
+      <div class="level-arrow">▶</div>
+    </div>
+    <div class="level-rumors" data-rumors>
+      <div class="level-empty">Пока пусто.</div>
+    </div>
+  </div>
+
+  <!-- Уровень 6 -->
+  <div class="level lvl-6" onclick="toggleLevel(this)">
+    <div class="level-inner">
+      <div class="level-info">
+        <div class="level-title"><span class="num">6</span> Бездна</div>
+        <div class="level-desc">Легенды, в которые мало кто верит. Но проверять никто не станет.</div>
+      </div>
+      <div class="level-count" data-count>0 слухов</div>
+      <div class="level-arrow">▶</div>
+    </div>
+    <div class="level-rumors" data-rumors>
+      <div class="level-empty">Пока пусто.</div>
+    </div>
+  </div>
+
+  <!-- Уровень 7 -->
+  <div class="level lvl-7" onclick="toggleLevel(this)">
+    <div class="level-inner">
+      <div class="level-info">
+        <div class="level-title"><span class="num">7</span> Забвение</div>
+        <div class="level-desc">То, что забыто. Или то, что пытались забыть.</div>
+      </div>
+      <div class="level-count" data-count>0 слухов</div>
+      <div class="level-arrow">▶</div>
+    </div>
+    <div class="level-rumors" data-rumors>
+      <div class="level-empty">Пока пусто.</div>
+    </div>
+  </div>
+
+  <!-- Уровень 8 -->
+  <div class="level lvl-8" onclick="toggleLevel(this)">
+    <div class="level-inner">
+      <div class="level-info">
+        <div class="level-title"><span class="num">8</span> Никому не говори</div>
+        <div class="level-desc">Самый глубокий уровень. Сюда попадает то, что не должно всплыть никогда.</div>
+      </div>
+      <div class="level-count" data-count>0 слухов</div>
+      <div class="level-arrow">▶</div>
+    </div>
+    <div class="level-rumors" data-rumors>
+      <div class="level-empty">Пока пусто.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==== НАПОМИНАНИЕ ==== -->
+<div class="bottom-note">
+  <div class="box">
+    <div class="title">🚫 Напоминание</div>
+    <p class="text">
+      Айсберг — не повод для травли. Слухи о конкретных людях, оскорбления,
+      угрозы и преследование запрещены. Всё, что нарушает правила, будет удалено.
+    </p>
   </div>
 </div>
 
 <script>
-  // ==== СТАТЬИ (пусто — заполняется реальными данными) ====
-  const articles = [];
+  // ==== ДАННЫЕ: слухи по уровням ====
+  // Формат: 1..8 — уровень, внутри массив слухов.
+  // Заполняется реальными данными позже.
+  const rumorsByLevel = {
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: [],
+    6: [],
+    7: [],
+    8: []
+  };
 
-  // ==== ПОИСК + СОРТИРОВКА ====
-  function doSearch() {
-    const q = document.getElementById('searchInput').value.trim().toLowerCase();
-    const yMin = parseInt(document.getElementById('yearMin').value) || 1993;
-    const yMax = parseInt(document.getElementById('yearMax').value) || 2027;
-    const order = document.getElementById('sortOrder').value;
+  // ==== РАСКРЫТИЕ УРОВНЕЙ ====
+  function toggleLevel(el) {
+    el.classList.toggle('open');
+  }
 
-    const filtered = articles.filter(a => {
-      if (a.year < yMin || a.year > yMax) return false;
-      if (!q) return true;
-      return a.title.toLowerCase().includes(q)
-          || a.body.toLowerCase().includes(q)
-          || a.author.toLowerCase().includes(q);
+  // ==== ЗАПОЛНЕНИЕ СЛУХОВ ====
+  function renderRumors() {
+    const levels = document.querySelectorAll('.level');
+    levels.forEach((levelEl, idx) => {
+      const lvlNum = idx + 1;
+      const list = rumorsByLevel[lvlNum] || [];
+      const container = levelEl.querySelector('[data-rumors]');
+      const countEl = levelEl.querySelector('[data-count]');
+
+      // Счётчик
+      countEl.textContent = list.length === 1
+        ? '1 слух'
+        : (list.length >= 2 && list.length <= 4)
+          ? list.length + ' слуха'
+          : list.length + ' слухов';
+
+      // Список
+      if (list.length === 0) {
+        container.innerHTML = '<div class="level-empty">Пока пусто. Слухи этого уровня появятся здесь.</div>';
+      } else {
+        container.innerHTML = list.map(r => `
+          <div class="rumor-item">
+            <div class="r-title">${esc(r.title)}</div>
+            <p class="r-body">${esc(r.body)}</p>
+            <div class="r-meta">
+              <button class="r-author" onclick="event.stopPropagation(); openUserProfile('${esc(r.author)}')">👤 ${esc(r.author)}</button>
+              <span>· ${r.year}</span>
+            </div>
+          </div>
+        `).join('');
+      }
     });
-
-    filtered.sort((a, b) => order === 'asc' ? a.year - b.year : b.year - a.year);
-
-    const block = document.getElementById('resultsBlock');
-    const list = document.getElementById('resultsList');
-    const title = document.getElementById('resultsTitle');
-
-    block.style.display = 'block';
-    title.textContent = q
-      ? `Результаты по «${q}» (${yMin}–${yMax}) — найдено: ${filtered.length}`
-      : `Все статьи (${yMin}–${yMax}) — найдено: ${filtered.length}`;
-
-    if (filtered.length === 0) {
-      list.innerHTML = '<div class="no-results">Ничего не найдено. Попробуйте изменить запрос или диапазон лет.</div>';
-      return;
-    }
-
-    list.innerHTML = filtered.map(a => `
-      <div class="article">
-        <div class="head">
-          <div class="title">${esc(a.title)}</div>
-          <div class="date">${a.year}</div>
-        </div>
-        <p class="body">${esc(a.body)}</p>
-        <button class="author" onclick="openUserProfile('${esc(a.author)}')">👤 ${esc(a.author)}</button>
-      </div>
-    `).join('');
   }
 
   function esc(s) {
@@ -512,76 +518,16 @@
     }[c]));
   }
 
-  // ==== ПРОФИЛЬ ====
-  let currentProfileUser = null;
-
+  // ==== КЛИК ПО АВТОРУ ====
   function openUserProfile(username) {
-    currentProfileUser = username;
-    document.getElementById('pName').textContent = username;
-    document.getElementById('pBio').textContent = 'Пользователь школы.';
-    document.getElementById('pSent').textContent = '0';
-    document.getElementById('pConfirmed').textContent = '0';
-
-    const friends = getFriends();
-    const btn = document.getElementById('pAddBtn');
-    if (friends.includes(username)) {
-      btn.textContent = '✓ В друзьях';
-      btn.classList.add('added');
-    } else {
-      btn.textContent = 'Добавить в друзья';
-      btn.classList.remove('added');
-    }
-    document.getElementById('profileOverlay').classList.add('active');
-  }
-
-  function closeProfile() {
-    document.getElementById('profileOverlay').classList.remove('active');
-    currentProfileUser = null;
-  }
-
-  function toggleFriend() {
-    if (!currentProfileUser) return;
-    const friends = getFriends();
-    const idx = friends.indexOf(currentProfileUser);
-    const btn = document.getElementById('pAddBtn');
-
-    if (idx === -1) {
-      friends.push(currentProfileUser);
-      btn.textContent = '✓ В друзьях';
-      btn.classList.add('added');
-    } else {
-      friends.splice(idx, 1);
-      btn.textContent = 'Добавить в друзья';
-      btn.classList.remove('added');
-    }
-    localStorage.setItem('friends', JSON.stringify(friends));
-  }
-
-  function getFriends() {
-    try { return JSON.parse(localStorage.getItem('friends') || '[]'); }
-    catch { return []; }
-  }
-
-  // ==== ЛИЧНЫЕ СООБЩЕНИЯ ====
-  function openMessages() {
-    const friends = getFriends();
-    if (friends.length === 0) {
-      alert('Личные сообщения пусты.\n\nДобавьте друзей, нажав на имя автора в любой статье.');
-    } else {
-      alert('Ваши друзья (будут доступны в ЛС):\n\n• ' + friends.join('\n• '));
-    }
-  }
-
-  // ==== СООБЩЕНИЯ АДМИНИСТРАЦИИ ====
-  function openAdminMessages() {
-    alert('📢 Сообщений от администрации пока нет.\n\nЗдесь будут появляться важные объявления.');
+    alert('Профиль пользователя: ' + username + '\n\n(Функция в разработке)');
   }
 
   // ==== МОЙ ПРОФИЛЬ ====
   function openMyProfile() {
     const raw = localStorage.getItem('profile');
     if (!raw) {
-      alert('Профиль не создан. Вернитесь на страницу регистрации.');
+      window.location.href = 'next.html';
       return;
     }
     try {
@@ -593,13 +539,12 @@
         `Слухов отправлено: ${p.rumorsSent || 0}\n` +
         `Слухов подтверждено: ${p.rumorsConfirmed || 0}`
       );
-    } catch {
-      alert('Профиль повреждён.');
-    }
+    } catch {}
   }
 
-  // Показываем username в шапке
+  // ==== ИНИЦИАЛИЗАЦИЯ ====
   window.addEventListener('DOMContentLoaded', () => {
+    // Подтягиваем username в шапку
     const raw = localStorage.getItem('profile');
     if (raw) {
       try {
@@ -609,6 +554,8 @@
         }
       } catch {}
     }
+    // Рендерим слухи
+    renderRumors();
   });
 </script>
 
