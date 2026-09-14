@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Уведомление об ограничении ответственности</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background: #1a1a1a;
+    color: #e8e8e8;
+    padding: 20px;
+  }
+  .modal {
+    background: #242424;
+    border: 1px solid #3a3a3a;
+    border-radius: 12px;
+    max-width: 720px;
+    width: 100%;
+    padding: 36px 32px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  }
+  .modal h1 {
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 24px;
+    color: #fff;
+    border-bottom: 1px solid #3a3a3a;
+    padding-bottom: 16px;
+  }
+  .modal .content {
+    max-height: 45vh;
+    overflow-y: auto;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: #c9c9c9;
+    padding-right: 12px;
+    margin-bottom: 24px;
+  }
+  .modal .content ol { padding-left: 22px; margin: 0; }
+  .modal .content li { margin-bottom: 12px; }
+  .modal .content strong { color: #fff; }
+  .modal .content::-webkit-scrollbar { width: 6px; }
+  .modal .content::-webkit-scrollbar-thumb {
+    background: #444; border-radius: 3px;
+  }
+  .btn-accept {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #fff;
+    background: #4a7cff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .btn-accept:hover { background: #3a6aeb; }
+  .btn-accept:active { transform: scale(0.99); }
+</style>
+</head>
+<body>
+
+<div class="modal">
+  <h1>Уведомление об ограничении ответственности</h1>
+
+  <div class="content">
+    <ol>
+      <li>Настоящий сайт (далее — «Сайт») является площадкой для свободного обмена мнениями и информацией между пользователями и функционирует в режиме информационного посредничества.</li>
+      <li>Администрация Сайта, его создатель, владелец доменного имени и лица, осуществляющие техническую поддержку (далее — «Администрация»), <strong>не являются авторами, инициаторами, распространителями или источниками</strong> сообщений, комментариев, публикаций и иных материалов, размещаемых пользователями Сайта (далее — «Пользовательский контент»).</li>
+      <li>Администрация <strong>не несёт ответственности</strong> за содержание, достоверность, полноту, законность и соответствие этическим нормам Пользовательского контента, включая, но не ограничиваясь: утверждения, мнения, оценки, слухи, предположения и сведения, размещённые третьими лицами.</li>
+      <li>Пользовательский контент отражает исключительно <strong>личную позицию и субъективное мнение</strong> лица, его разместившего, и не может рассматриваться как позиция, заявление или точка зрения Администрации.</li>
+      <li>Ответственность за Пользовательский контент, в том числе за возможное нарушение прав третьих лиц (включая право на честь, достоинство и деловую репутацию, право на неприкосновенность частной жизни, авторские и смежные права), <strong>несёт непосредственно автор</strong> такого контента.</li>
+      <li>Администрация <strong>не осуществляет предварительную модерацию</strong> Пользовательского контента и не обязана проверять его достоверность. Обработка и удаление контента осуществляется по обоснованному обращению правообладателя или уполномоченного органа в порядке, установленном законодательством Российской Федерации.</li>
+      <li>Использование Сайта означает <strong>полное и безоговорочное согласие</strong> Пользователя с настоящим Уведомлением. В случае несогласия Пользователь обязан немедленно прекратить использование Сайта.</li>
+      <li>Настоящее Уведомление не ограничивает и не исключает ответственность Администрации в случаях, прямо предусмотренных законом.</li>
+    </ol>
+  </div>
+
+  <button class="btn-accept" onclick="acceptDisclaimer()">Принять</button>
+</div>
+
+<script>
+  function acceptDisclaimer() {
+    localStorage.setItem('disclaimerAccepted', 'true');
+    window.location.href = 'next.html';
+  }
+</script>
+
+</body>
+</html>
