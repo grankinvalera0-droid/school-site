@@ -1,317 +1,3 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Создать аккаунт</title>
-<style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-    background: #1a1a1a;
-    color: #e8e8e8;
-    padding: 24px;
-  }
-  .card {
-    background: #242424;
-    border: 1px solid #3a3a3a;
-    border-radius: 12px;
-    max-width: 560px;
-    width: 100%;
-    padding: 40px 36px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-  }
-  .card h1 {
-    font-size: 22px;
-    color: #fff;
-    margin: 0 0 8px;
-    text-align: center;
-  }
-  .card p.subtitle {
-    font-size: 13.5px;
-    color: #888;
-    text-align: center;
-    margin: 0 0 32px;
-    line-height: 1.6;
-  }
-
-  /* ==== Аватар ==== */
-  .avatar-block {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 28px;
-  }
-  .avatar-preview {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    background: #2e2e2e;
-    border: 2px dashed #4a4a4a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 34px;
-    color: #666;
-    cursor: pointer;
-    overflow: hidden;
-    transition: border-color 0.2s, background 0.2s;
-    background-size: cover;
-    background-position: center;
-  }
-  .avatar-preview:hover {
-    border-color: #4a7cff;
-    background-color: #2a2a3a;
-  }
-  .avatar-label {
-    font-size: 12.5px;
-    color: #777;
-    margin-top: 10px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-  input[type="file"] { display: none; }
-
-  /* ==== Поля ==== */
-  .field { margin-bottom: 20px; }
-  .field label {
-    display: block;
-    font-size: 12.5px;
-    color: #aaa;
-    margin-bottom: 7px;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-  }
-  .field input[type="text"],
-  .field textarea {
-    width: 100%;
-    padding: 13px 14px;
-    font-size: 14.5px;
-    font-family: inherit;
-    color: #fff;
-    background: #1e1e1e;
-    border: 1px solid #3a3a3a;
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.2s;
-    resize: vertical;
-  }
-  .field input[type="text"]:focus,
-  .field textarea:focus { border-color: #4a7cff; }
-  .field textarea { min-height: 90px; max-height: 200px; }
-  .field .counter {
-    font-size: 11.5px;
-    color: #666;
-    text-align: right;
-    margin-top: 4px;
-  }
-
-  /* ==== Обязательно к прочтению ==== */
-  .must-read {
-    background: #2a1717;
-    border: 1px solid #5a2a2a;
-    border-left: 4px solid #d94a4a;
-    border-radius: 8px;
-    padding: 18px 20px;
-    margin-bottom: 16px;
-  }
-  .must-read .mr-title {
-    font-size: 12.5px;
-    color: #ff7a7a;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .must-read .mr-text {
-    font-size: 13.5px;
-    color: #d8c0c0;
-    line-height: 1.6;
-    margin-bottom: 14px;
-  }
-  .must-read .mr-text strong { color: #fff; }
-  .must-read .checkbox-row input[type="checkbox"] {
-    accent-color: #d94a4a;
-  }
-
-  /* ==== Предупреждения ==== */
-  .warnings {
-    background: #2a2317;
-    border: 1px solid #4a3a1a;
-    border-radius: 8px;
-    padding: 16px 18px;
-    margin-bottom: 24px;
-  }
-  .warnings .warn-title {
-    font-size: 12.5px;
-    color: #e5b96b;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .checkbox-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    font-size: 13.5px;
-    color: #c9c9c9;
-    line-height: 1.5;
-  }
-  .checkbox-row:last-child { margin-bottom: 0; }
-  .checkbox-row input[type="checkbox"] {
-    margin-top: 2px;
-    width: 16px;
-    height: 16px;
-    accent-color: #4a7cff;
-    cursor: pointer;
-    flex-shrink: 0;
-  }
-
-  /* ==== Кнопка ==== */
-  .btn-create {
-    display: block;
-    width: 100%;
-    padding: 15px;
-    font-size: 15.5px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    color: #fff;
-    background: #4a7cff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s, opacity 0.2s;
-    margin-bottom: 28px;
-  }
-  .btn-create:hover { background: #3a6aeb; }
-  .btn-create:active { transform: scale(0.99); }
-  .btn-create:disabled {
-    background: #333;
-    color: #666;
-    cursor: not-allowed;
-  }
-
-  /* ==== Статистика ==== */
-  .stats {
-    display: flex;
-    gap: 12px;
-    border-top: 1px solid #3a3a3a;
-    padding-top: 24px;
-  }
-  .stat {
-    flex: 1;
-    background: #1e1e1e;
-    border: 1px solid #333;
-    border-radius: 8px;
-    padding: 16px 12px;
-    text-align: center;
-  }
-  .stat .num {
-    font-size: 26px;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-  .stat .label {
-    font-size: 11.5px;
-    color: #888;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-  }
-</style>
-</head>
-<body>
-
-<div class="card">
-  <h1>Создать аккаунт</h1>
-  <p class="subtitle">Заполните профиль. Данные пока сохраняются только в этом браузере.</p>
-
-  <!-- Аватар -->
-  <div class="avatar-block">
-    <div class="avatar-preview" id="avatarPreview" onclick="document.getElementById('avatarInput').click()">📷</div>
-    <div class="avatar-label">Нажмите, чтобы выбрать фото</div>
-    <input type="file" id="avatarInput" accept="image/*" onchange="previewAvatar(event)">
-  </div>
-
-  <!-- Username -->
-  <div class="field">
-    <label for="username">Имя пользователя (username)</label>
-    <input type="text" id="username" placeholder="например, night_owl" maxlength="24"
-           oninput="updateCounter('username', 'usernameCounter', 24)">
-    <div class="counter" id="usernameCounter">0 / 24</div>
-  </div>
-
-  <!-- Описание -->
-  <div class="field">
-    <label for="bio">Описание профиля</label>
-    <textarea id="bio" placeholder="Пара слов о себе (необязательно)" maxlength="200"
-              oninput="updateCounter('bio', 'bioCounter', 200)"></textarea>
-    <div class="counter" id="bioCounter">0 / 200</div>
-  </div>
-
-  <!-- Обязательно к прочтению -->
-  <div class="must-read">
-    <div class="mr-title">🚫 Обязательно к прочтению</div>
-    <div class="mr-text">
-      Этот сайт — <strong>не место для травли</strong>. Запрещено публиковать угрозы,
-      оскорбления, унижения, призывы к насилию, целенаправленную травлю и преследование
-      конкретных людей. Подобные материалы будут удаляться, а аккаунты — блокироваться
-      без предупреждения. Если вы стали свидетелем травли — сообщите администрации.
-    </div>
-    <label class="checkbox-row">
-      <input type="checkbox" id="noBullying">
-      <span>Я прочитал(а) и обязуюсь <strong>не использовать сайт для травли</strong>, оскорблений и преследования других людей.</span>
-    </label>
-  </div>
-
-  <!-- Предупреждения -->
-  <div class="warnings">
-    <div class="warn-title">⚠ Рекомендации по безопасности</div>
-
-    <label class="checkbox-row">
-      <input type="checkbox" id="warnPhoto">
-      <span>Я понимаю, что <strong>не стоит загружать своё настоящее фото</strong> — это может раскрыть мою личность.</span>
-    </label>
-
-    <label class="checkbox-row">
-      <input type="checkbox" id="warnName">
-      <span>Я понимаю, что <strong>не стоит использовать настоящее имя, фамилию или ник из соцсетей</strong> — это может привести к деанонимизации.</span>
-    </label>
-  </div>
-
-  <!-- Кнопка -->
-  <button class="btn-create" id="createBtn" onclick="createAccount()" disabled>
-    Создать аккаунт
-  </button>
-
-  <!-- Статистика -->
-  <div class="stats">
-    <div class="stat">
-      <div class="num">0</div>
-      <div class="label">Слухов отправлено</div>
-    </div>
-    <div class="stat">
-      <div class="num">0</div>
-      <div class="label">Слухов подтверждено</div>
-    </div>
-  </div>
-</div>
-
 <script>
   let avatarDataUrl = null;
 
@@ -341,22 +27,27 @@
     document.getElementById(counterId).textContent = `${len} / ${max}`;
   }
 
-  // ==== Активация кнопки только при трёх галочках ====
+  // ==== Активация кнопки: имя + все 3 галочки ====
   const noBullying = document.getElementById('noBullying');
-  const warnPhoto = document.getElementById('warnPhoto');
-  const warnName = document.getElementById('warnName');
-  const createBtn = document.getElementById('createBtn');
+  const warnPhoto  = document.getElementById('warnPhoto');
+  const warnName   = document.getElementById('warnName');
+  const usernameEl = document.getElementById('username');
+  const createBtn  = document.getElementById('createBtn');
 
-  function checkWarnings() {
-    createBtn.disabled = !(noBullying.checked && warnPhoto.checked && warnName.checked);
+  function checkForm() {
+    const nameOk = usernameEl.value.trim().length > 0;
+    const boxesOk = noBullying.checked && warnPhoto.checked && warnName.checked;
+    createBtn.disabled = !(nameOk && boxesOk);
   }
-  noBullying.addEventListener('change', checkWarnings);
-  warnPhoto.addEventListener('change', checkWarnings);
-  warnName.addEventListener('change', checkWarnings);
+
+  noBullying.addEventListener('change', checkForm);
+  warnPhoto.addEventListener('change', checkForm);
+  warnName.addEventListener('change', checkForm);
+  usernameEl.addEventListener('input', checkForm);
 
   // ==== Создание аккаунта ====
   function createAccount() {
-    const username = document.getElementById('username').value.trim();
+    const username = usernameEl.value.trim();
     const bio = document.getElementById('bio').value.trim();
 
     if (!username) {
@@ -382,7 +73,7 @@
 
     window.location.href = 'home.html';
   }
-</script>
 
-</body>
-</html>
+  // Первичная проверка (на случай автозаполнения)
+  checkForm();
+</script>
