@@ -178,6 +178,8 @@
     min-height: 160px;
   }
   .grid-btn.center:hover { border-color: #4a7cff; background: #253048; }
+  .grid-btn.bl { grid-column: 1; grid-row: 3; }
+  .grid-btn.br { grid-column: 3; grid-row: 3; }
 
   /* ==== Кнопка «Айсберг» с картинкой ==== */
   .iceberg-btn {
@@ -228,8 +230,54 @@
     padding: 12px 10px;
   }
 
-  .grid-btn.bl { grid-column: 1; grid-row: 3; }
-  .grid-btn.br { grid-column: 3; grid-row: 3; }
+  /* ==== Кнопка «Предложить слух» с картинкой ==== */
+  .rumor-btn {
+    padding: 0 !important;
+    position: relative;
+    overflow: hidden;
+    background: url('write.jpg') center/cover no-repeat !important;
+    border: 1px solid #5a4a2e !important;
+    min-height: 130px;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+  }
+  .rumor-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.05) 0%,
+      rgba(0,0,0,0.2) 45%,
+      rgba(0,0,0,0.8) 100%
+    );
+    transition: background 0.2s;
+    z-index: 1;
+  }
+  .rumor-btn:hover {
+    transform: translateY(-2px);
+    border-color: #e5b96b !important;
+    box-shadow: 0 6px 20px rgba(229, 185, 107, 0.3);
+  }
+  .rumor-btn:hover::before {
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.05) 0%,
+      rgba(90, 60, 20, 0.35) 45%,
+      rgba(0,0,0,0.85) 100%
+    );
+  }
+  .rumor-btn .rumor-label {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.9);
+    padding: 12px 10px;
+  }
 
   /* ==== РЕЗУЛЬТАТЫ ==== */
   .results {
@@ -460,9 +508,8 @@
     <span class="iceberg-label">🧊 Айсберг</span>
   </button>
 
-  <button class="grid-btn tr" onclick="alert('Форма «Предложить слух» появится позже.')">
-    <span class="icon">✍️</span>
-    <span>Предложить слух</span>
+  <button class="grid-btn tr rumor-btn" onclick="alert('Форма «Предложить слух» появится позже.')">
+    <span class="rumor-label">✍️ Предложить слух</span>
   </button>
 
   <button class="grid-btn center" onclick="openMessages()">
