@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Главная</title>
+<title>Добро пожаловать</title>
 <style>
+  * { box-sizing: border-box; }
   body {
     margin: 0;
     min-height: 100vh;
@@ -14,19 +15,130 @@
     font-family: 'Segoe UI', Roboto, Arial, sans-serif;
     background: #1a1a1a;
     color: #e8e8e8;
+    padding: 20px;
   }
-  .placeholder {
+  .card {
+    background: #242424;
+    border: 1px solid #3a3a3a;
+    border-radius: 12px;
+    max-width: 480px;
+    width: 100%;
+    padding: 48px 36px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
     text-align: center;
-    padding: 40px;
   }
-  h1 { font-size: 28px; color: #fff; margin-bottom: 12px; }
-  p { color: #888; font-size: 15px; }
+  .card .logo {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 24px;
+    border-radius: 50%;
+    background: #2e2e2e;
+    border: 1px solid #3a3a3a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+  .card h1 {
+    font-size: 22px;
+    color: #fff;
+    margin: 0 0 12px;
+    font-weight: 600;
+  }
+  .card p.subtitle {
+    font-size: 14px;
+    color: #888;
+    line-height: 1.6;
+    margin: 0 0 32px;
+  }
+  .btn {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s, border-color 0.2s;
+    margin-bottom: 12px;
+  }
+  .btn:active { transform: scale(0.99); }
+
+  .btn-primary {
+    color: #fff;
+    background: #4a7cff;
+  }
+  .btn-primary:hover { background: #3a6aeb; }
+
+  .btn-secondary {
+    color: #c9c9c9;
+    background: transparent;
+    border: 1px solid #3a3a3a;
+  }
+  .btn-secondary:hover {
+    background: #2e2e2e;
+    border-color: #4a4a4a;
+    color: #fff;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 20px 0;
+    color: #555;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: #3a3a3a;
+  }
 </style>
 </head>
 <body>
-  <div class="placeholder">
-    <h1>Следующая страница</h1>
-    <p>Здесь будет основной контент сайта.</p>
-  </div>
+
+<div class="card">
+  <div class="logo">🏫</div>
+
+  <h1>Добро пожаловать</h1>
+  <p class="subtitle">
+    Вы можете создать аккаунт, чтобы сохранять историю и получать уведомления,
+    или продолжить анонимно — без регистрации и следов.
+  </p>
+
+  <button class="btn btn-primary" onclick="goToRegister()">Создать аккаунт</button>
+
+  <div class="divider">или</div>
+
+  <button class="btn btn-secondary" onclick="goAnonymous()">Продолжить анонимно</button>
+</div>
+
+<script>
+  // Переход на страницу регистрации (создадите позже)
+  function goToRegister() {
+    window.location.href = 'register.html';
+  }
+
+  // Анонимный вход — генерируем случайный ID и переходим на главную
+  function goAnonymous() {
+    // Проверяем, есть ли уже анонимный ID
+    let anonId = localStorage.getItem('anonId');
+    if (!anonId) {
+      // Генерируем случайный идентификатор
+      anonId = 'anon_' + Math.random().toString(36).substring(2, 10);
+      localStorage.setItem('anonId', anonId);
+    }
+    localStorage.setItem('isAnonymous', 'true');
+    window.location.href = 'home.html'; // ← страница форума/ленты (сделаем позже)
+  }
+</script>
+
 </body>
 </html>
