@@ -21,75 +21,146 @@
     background: #242424;
     border: 1px solid #3a3a3a;
     border-radius: 12px;
-    max-width: 480px;
+    max-width: 520px;
     width: 100%;
-    padding: 48px 36px;
+    padding: 40px 32px;
     box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    text-align: center;
   }
   .card .logo {
-    width: 64px;
-    height: 64px;
-    margin: 0 auto 24px;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
     border-radius: 50%;
     background: #2e2e2e;
     border: 1px solid #3a3a3a;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    font-size: 26px;
   }
   .card h1 {
-    font-size: 22px;
+    font-size: 21px;
     color: #fff;
-    margin: 0 0 12px;
+    margin: 0 0 10px;
     font-weight: 600;
+    text-align: center;
   }
   .card p.subtitle {
-    font-size: 14px;
+    font-size: 13.5px;
     color: #888;
     line-height: 1.6;
-    margin: 0 0 32px;
+    margin: 0 0 26px;
+    text-align: center;
   }
+
+  /* ==== Обязательно к прочтению ==== */
+  .must-read {
+    background: #2a1717;
+    border: 1px solid #5a2a2a;
+    border-left: 4px solid #d94a4a;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 14px;
+  }
+  .must-read .mr-title {
+    font-size: 12px;
+    color: #ff7a7a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .must-read .mr-text {
+    font-size: 13px;
+    color: #d8c0c0;
+    line-height: 1.55;
+    margin: 0;
+  }
+  .must-read .mr-text strong { color: #fff; }
+
+  /* ==== Предупреждения ==== */
+  .warnings {
+    background: #2a2317;
+    border: 1px solid #4a3a1a;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+  }
+  .warnings .warn-title {
+    font-size: 12px;
+    color: #e5b96b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .agree-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #c9c9c9;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .agree-row:last-child { margin-bottom: 0; }
+  .agree-row input[type="checkbox"] {
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    accent-color: #4a7cff;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .must-read .agree-row { margin-top: 12px; margin-bottom: 0; }
+  .must-read .agree-row input[type="checkbox"] { accent-color: #d94a4a; }
+
+  /* ==== Кнопки ==== */
   .btn {
     display: block;
     width: 100%;
-    padding: 15px;
+    padding: 14px;
     font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.3px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.2s, transform 0.1s, border-color 0.2s;
-    margin-bottom: 12px;
+    transition: background 0.2s, transform 0.1s, opacity 0.2s;
+    margin-bottom: 10px;
+    font-family: inherit;
   }
-  .btn:active { transform: scale(0.99); }
+  .btn:active:not(:disabled) { transform: scale(0.99); }
+  .btn:disabled { cursor: not-allowed; }
 
   .btn-primary {
     color: #fff;
     background: #4a7cff;
   }
-  .btn-primary:hover { background: #3a6aeb; }
+  .btn-primary:hover:not(:disabled) { background: #3a6aeb; }
+  .btn-primary:disabled { background: #2a3550; color: #6a7a9a; }
 
   .btn-secondary {
     color: #c9c9c9;
     background: transparent;
     border: 1px solid #3a3a3a;
   }
-  .btn-secondary:hover {
+  .btn-secondary:hover:not(:disabled) {
     background: #2e2e2e;
     border-color: #4a4a4a;
     color: #fff;
   }
+  .btn-secondary:disabled { color: #555; border-color: #2a2a2a; }
 
   .divider {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin: 20px 0;
+    margin: 16px 0;
     color: #555;
-    font-size: 12px;
+    font-size: 11.5px;
     text-transform: uppercase;
     letter-spacing: 1px;
   }
@@ -100,6 +171,13 @@
     height: 1px;
     background: #3a3a3a;
   }
+
+  .hint {
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+    margin-top: 6px;
+  }
 </style>
 </head>
 <body>
@@ -109,34 +187,73 @@
 
   <h1>Добро пожаловать</h1>
   <p class="subtitle">
-    Вы можете создать аккаунт, чтобы сохранять историю и получать уведомления,
+    Прежде чем продолжить, подтвердите правила. Вы можете создать аккаунт
     или продолжить анонимно — без регистрации и следов.
   </p>
 
-  <button class="btn btn-primary" onclick="goToRegister()">Создать аккаунт</button>
+  <!-- Обязательно к прочтению -->
+  <div class="must-read">
+    <div class="mr-title">🚫 Обязательно к прочтению</div>
+    <p class="mr-text">
+      Этот сайт — <strong>не место для травли</strong>. Запрещены оскорбления,
+      угрозы, унижения и преследование других людей. Нарушители блокируются.
+    </p>
+    <label class="agree-row">
+      <input type="checkbox" id="noBullying">
+      <span>Я обязуюсь <strong>не использовать сайт для травли</strong> и оскорблений.</span>
+    </label>
+  </div>
+
+  <!-- Безопасность -->
+  <div class="warnings">
+    <div class="warn-title">⚠ Рекомендации по безопасности</div>
+    <label class="agree-row">
+      <input type="checkbox" id="warnPhoto">
+      <span>Я понимаю, что <strong>не стоит загружать своё настоящее фото</strong>.</span>
+    </label>
+    <label class="agree-row">
+      <input type="checkbox" id="warnName">
+      <span>Я понимаю, что <strong>не стоит использовать настоящее имя или ник из соцсетей</strong>.</span>
+    </label>
+  </div>
+
+  <button class="btn btn-primary" id="btnRegister" onclick="goToRegister()" disabled>Создать аккаунт</button>
 
   <div class="divider">или</div>
 
-  <button class="btn btn-secondary" onclick="goAnonymous()">Продолжить анонимно</button>
+  <button class="btn btn-secondary" id="btnAnon" onclick="goAnonymous()" disabled>Продолжить анонимно</button>
+
+  <div class="hint" id="hint">Отметьте все пункты выше, чтобы продолжить</div>
 </div>
 
 <script>
-  // Переход на страницу регистрации (создадите позже)
+  const noBullying = document.getElementById('noBullying');
+  const warnPhoto = document.getElementById('warnPhoto');
+  const warnName = document.getElementById('warnName');
+  const btnRegister = document.getElementById('btnRegister');
+  const btnAnon = document.getElementById('btnAnon');
+  const hint = document.getElementById('hint');
+
+  function checkBoxes() {
+    const ok = noBullying.checked && warnPhoto.checked && warnName.checked;
+    btnRegister.disabled = !ok;
+    btnAnon.disabled = !ok;
+    hint.style.display = ok ? 'none' : 'block';
+  }
+  [noBullying, warnPhoto, warnName].forEach(cb => cb.addEventListener('change', checkBoxes));
+
   function goToRegister() {
     window.location.href = 'register.html';
   }
 
-  // Анонимный вход — генерируем случайный ID и переходим на главную
   function goAnonymous() {
-    // Проверяем, есть ли уже анонимный ID
     let anonId = localStorage.getItem('anonId');
     if (!anonId) {
-      // Генерируем случайный идентификатор
       anonId = 'anon_' + Math.random().toString(36).substring(2, 10);
       localStorage.setItem('anonId', anonId);
     }
     localStorage.setItem('isAnonymous', 'true');
-    window.location.href = 'home.html'; // ← страница форума/ленты (сделаем позже)
+    window.location.href = 'home.html';
   }
 </script>
 
