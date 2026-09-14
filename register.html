@@ -111,6 +111,37 @@
     margin-top: 4px;
   }
 
+  /* ==== Обязательно к прочтению ==== */
+  .must-read {
+    background: #2a1717;
+    border: 1px solid #5a2a2a;
+    border-left: 4px solid #d94a4a;
+    border-radius: 8px;
+    padding: 18px 20px;
+    margin-bottom: 16px;
+  }
+  .must-read .mr-title {
+    font-size: 12.5px;
+    color: #ff7a7a;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .must-read .mr-text {
+    font-size: 13.5px;
+    color: #d8c0c0;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .must-read .mr-text strong { color: #fff; }
+  .must-read .checkbox-row input[type="checkbox"] {
+    accent-color: #d94a4a;
+  }
+
   /* ==== Предупреждения ==== */
   .warnings {
     background: #2a2317;
@@ -233,6 +264,21 @@
     <div class="counter" id="bioCounter">0 / 200</div>
   </div>
 
+  <!-- Обязательно к прочтению -->
+  <div class="must-read">
+    <div class="mr-title">🚫 Обязательно к прочтению</div>
+    <div class="mr-text">
+      Этот сайт — <strong>не место для травли</strong>. Запрещено публиковать угрозы,
+      оскорбления, унижения, призывы к насилию, целенаправленную травлю и преследование
+      конкретных людей. Подобные материалы будут удаляться, а аккаунты — блокироваться
+      без предупреждения. Если вы стали свидетелем травли — сообщите администрации.
+    </div>
+    <label class="checkbox-row">
+      <input type="checkbox" id="noBullying">
+      <span>Я прочитал(а) и обязуюсь <strong>не использовать сайт для травли</strong>, оскорблений и преследования других людей.</span>
+    </label>
+  </div>
+
   <!-- Предупреждения -->
   <div class="warnings">
     <div class="warn-title">⚠ Рекомендации по безопасности</div>
@@ -274,7 +320,6 @@
     const file = event.target.files[0];
     if (!file) return;
 
-    // Проверка размера (не более 2 МБ, чтобы не тормозить)
     if (file.size > 2 * 1024 * 1024) {
       alert('Файл слишком большой. Максимум 2 МБ.');
       return;
@@ -285,7 +330,7 @@
       avatarDataUrl = e.target.result;
       const preview = document.getElementById('avatarPreview');
       preview.style.backgroundImage = `url(${avatarDataUrl})`;
-      preview.textContent = ''; // убираем иконку 📷
+      preview.textContent = '';
     };
     reader.readAsDataURL(file);
   }
@@ -296,14 +341,16 @@
     document.getElementById(counterId).textContent = `${len} / ${max}`;
   }
 
-  // ==== Активация кнопки только при обеих галочках ====
+  // ==== Активация кнопки только при трёх галочках ====
+  const noBullying = document.getElementById('noBullying');
   const warnPhoto = document.getElementById('warnPhoto');
   const warnName = document.getElementById('warnName');
   const createBtn = document.getElementById('createBtn');
 
   function checkWarnings() {
-    createBtn.disabled = !(warnPhoto.checked && warnName.checked);
+    createBtn.disabled = !(noBullying.checked && warnPhoto.checked && warnName.checked);
   }
+  noBullying.addEventListener('change', checkWarnings);
   warnPhoto.addEventListener('change', checkWarnings);
   warnName.addEventListener('change', checkWarnings);
 
@@ -316,16 +363,15 @@
       alert('Введите имя пользователя.');
       return;
     }
-    if (!warnPhoto.checked || !warnName.checked) {
-      alert('Подтвердите обе рекомендации по безопасности.');
+    if (!noBullying.checked || !warnPhoto.checked || !warnName.checked) {
+      alert('Подтвердите все обязательные пункты.');
       return;
     }
 
-    // Профиль (пока сохраняем только локально, потом заменим на сервер)
     const profile = {
       username: username,
       bio: bio,
-      avatar: avatarDataUrl,       // base64 строка или null
+      avatar: avatarDataUrl,
       rumorsSent: 0,
       rumorsConfirmed: 0,
       createdAt: Date.now()
@@ -334,7 +380,6 @@
     localStorage.setItem('profile', JSON.stringify(profile));
     localStorage.setItem('isAnonymous', 'false');
 
-    // Переход на главную (создадим позже)
     window.location.href = 'home.html';
   }
 </script>
