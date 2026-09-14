@@ -174,11 +174,8 @@
   .grid-btn.center {
     grid-column: 2;
     grid-row: 2;
-    background: #212a3d;
-    border-color: #3a4a6a;
     min-height: 280px;
   }
-  .grid-btn.center:hover { border-color: #4a7cff; background: #253048; }
   .grid-btn.bl { grid-column: 1; grid-row: 3; }
   .grid-btn.br { grid-column: 3; grid-row: 3; }
 
@@ -270,6 +267,55 @@
     );
   }
   .rumor-btn .rumor-label {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.95);
+    padding: 16px 12px;
+  }
+
+  /* ==== Кнопка «Личные сообщения» с картинкой ==== */
+  .letters-btn {
+    padding: 0 !important;
+    position: relative;
+    overflow: hidden;
+    background: url('letter.jpg') center/cover no-repeat !important;
+    border: 1px solid #4a3a6a !important;
+    min-height: 280px;
+    display: flex !important;
+    align-items: flex-end !important;
+    justify-content: center !important;
+  }
+  .letters-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.05) 0%,
+      rgba(0,0,0,0.2) 55%,
+      rgba(0,0,0,0.78) 100%
+    );
+    transition: background 0.2s;
+    z-index: 1;
+  }
+  .letters-btn:hover {
+    transform: translateY(-3px);
+    border-color: #a06aff !important;
+    box-shadow: 0 8px 28px rgba(160, 106, 255, 0.3);
+  }
+  .letters-btn:hover::before {
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.05) 0%,
+      rgba(60, 30, 90, 0.35) 55%,
+      rgba(0,0,0,0.82) 100%
+    );
+  }
+  .letters-btn .letters-label {
     position: relative;
     z-index: 2;
     color: #fff;
@@ -523,9 +569,8 @@
     <span class="rumor-label">✍️ Предложить слух</span>
   </button>
 
-  <button class="grid-btn center" onclick="openMessages()">
-    <span class="icon">💬</span>
-    <span>Личные сообщения</span>
+  <button class="grid-btn center letters-btn" onclick="alert('Личные сообщения появятся позже.')">
+    <span class="letters-label">💬 Личные сообщения</span>
   </button>
 
   <button class="grid-btn bl" onclick="alert('Список учителей и учеников появится позже.')">
@@ -659,15 +704,6 @@
   function getFriends() {
     try { return JSON.parse(localStorage.getItem('friends') || '[]'); }
     catch { return []; }
-  }
-
-  function openMessages() {
-    const friends = getFriends();
-    if (friends.length === 0) {
-      alert('Личные сообщения пусты.\n\nДобавьте друзей, нажав на имя автора в любой статье.');
-    } else {
-      alert('Ваши друзья (будут доступны в ЛС):\n\n• ' + friends.join('\n• '));
-    }
   }
 
   function openAdminMessages() {
